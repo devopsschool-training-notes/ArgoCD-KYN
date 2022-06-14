@@ -1,0 +1,151 @@
+kubernetes deployment strategy 
+- https://www.devopsschool.com/blog/kubernetes-deployment-strategy-explained-with-example/
+- https://www.devopsschool.com/blog/list-of-popular-deployment-strategies/
+
+How to install ArgoCD in Kubernetes?
+-------------------------------------------
+
+Rajesh - 43.204.112.140
+username - centos
+Key - 
+
+
+Step 1 - Install and Configure 1 Kubernetes clustor
+- Setup a Master
+- Setup a Worker
+- Configure a Workstation of kubectl
+https://www.devopsschool.com/blog/setting-up-kubernetes-clusters-using-kubeadm-manual-way-in-rhel-7-centos7/
+
+
+To Make master behave worker
+$ kubectl taint nodes --all node-role.kubernetes.io/master-
+
+
+Step 2 - Create a Namespace where you want to run ArgoCD pods.
+
+
+kubectl create namespace argocd
+
+
+
+Step 3 - Deploy AorgoCD NON-HA to kubernetes
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+ 18  clear
+   19  ls
+   20  kubectl get pods
+   21  kubectl run -h
+   22  clear
+   23  kubectl run nginx --image=nginx
+   24  kubectl get pods
+   25  clear
+   26  kubectl get pods
+   27  kubectl get nodes
+   28  clear
+   29  ls
+   30  more $HOME/.kube/config
+   31  clear
+   32  more $HOME/.kube/config
+   33  clear
+   34  kubectl config view
+   35  clear
+   36  kubectl config view
+   37  clear
+   38  kubectl get ms
+   39  kubectl get ns
+   40  kubectl create namespace argocd
+   41  kubectl get ns
+   42  clear
+   43  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
+   44  clear
+   45  kubectl get pods
+   46  kubectl get ns
+   47  kubectl get pods -n=argocd
+   48  clear
+   49  kubectl get pods -n=argocd
+   50  kubectl get all -n=argocd
+   51  history
+
+
+Step 4 - Download ArgoCD Cli
+sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo chmod +x /usr/local/bin/argocd
+
+
+Step 5 - Expose ArgoCD api server services with NodePort 
+
+
+
+
+=============================================================
+Master 
+-------------------
+API Server 		- POD - Container 
+etcd			- POD - Container 
+Schedular		- POD - Container 
+Controller mgmr	- POD - Container 
+Proxy 		- POD - Container 	
+CoreDN		- POD - Container 
+
+kubectl
+kubelet
+kubeadm
+docker
+
+Worker
+------------------
+Proxy 		- POD - Container 	
+
+kubectl
+kubelet
+kubeadm
+docker
+
+Workstation
+---------------
+kubectl ---> config
+		$HOME/.kube./config
+
+		config
+		- Clustor
+		- User
+		- Context
+
+
+
+
+
+
+============================RAJESH k8s========================================
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 172.31.11.197:6443 --token 60uvg8.3a8wou6abkqfo4f5 \
+        --discovery-token-ca-cert-hash sha256:6aae54b01f00e5b9d56a4936d9cad33bb74936512bb052c76bca1e86635729e6
+
+=========================================================================
+
+
+
+
+
+
+
+
+
+
+
