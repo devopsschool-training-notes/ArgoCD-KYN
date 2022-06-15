@@ -233,3 +233,83 @@ p, user:alice, applications, *, */*, allow
 p, user:alice, applications, *, */*, allow
 p, user:alice, applications, *, */*, allow
 p, user:alice, applications, *, */*, allow
+===================================
+Rajesh - 1 k8 (argocd) + harshit + rahul		= 43.204.112.140
+Harshit - 1 k8		= 13.233.201.203
+Rahul - 1 k8			= 3.110.123.83
+
+Step 1 - Add all clustors to config file.
+
+==============================================
+config
+-------------------------------------------
+clustor(s)
+- clustor1
+- clustor2
+- clustor3
+
+user(s)
+- user1 - cert + pvt key
+- user2 - cert + pvt key
+- user3 - cert + pvt key
+
+context(s)
+- context1 = clustor1 + user2
+- context2 = clustor2 + user3
+
+- context:
+    cluster: harshit
+    user: kubernetes-harshit
+  name: kubernetes-admin@harshit
+
+kubernetes-admin@harshit
+
+
+[centos@rajesh ~]$ kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://172.31.9.118:6443
+  name: harshit
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://172.31.11.197:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: harshit
+    user: kubernetes-admin1
+  name: kubernetes-admin@harshit
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: kubernetes-admin
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+- name: kubernetes-admin1
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+
+
+
+kubectl --context=kubernetes-admin@harshit get pods
+
+$ argocd cluster list
+$ argocd cluster add CONTEXT [flags]
+$ argocd cluster add kubernetes-admin@harshit --name harshit
+
+
+
+
+
+
+
+
