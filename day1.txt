@@ -89,6 +89,10 @@ IP - 43.204.112.140:31142
 username admin
 Password - OqhVPTYvsTCYNapf
 
+IP - 43.204.112.140:31142
+username alice
+Password - OqhVPTYvsTCYNeeef
+
 argocd login <ARGOCD_SERVER>
 
 Option 1
@@ -98,7 +102,9 @@ Option 1
 Option 2
 ARGOCD_OPTS environment variable: export ARGOCD_OPTS='--port-forward-namespace argocd'.
 
-argocd login
+argocd login 43.204.112.140:31142
+username admin
+Password - OqhVPTYvsTCYNapf
 
 =============================================================
 Master 
@@ -161,7 +167,15 @@ kubeadm join 172.31.11.197:6443 --token 60uvg8.3a8wou6abkqfo4f5 \
 
 =========================================================================
 
+Simple Workflow of ArgCD
 
+Step 1 - Create a Project
+
+Step 2 - Add a repo to a Project
+
+Step 3 - Edit project and Add Clustor"Destination" where app need to be deployed
+
+Step 4 - Create app and SYNC.
 
 
 
