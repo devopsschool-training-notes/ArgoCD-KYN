@@ -185,5 +185,51 @@ p, <role/user/group>, <resource>, <action>, <appproject>/<object>
   243  argocd repo rm https://github.com/argoproj/argocd-example-apps
 --------------------------------------------
 
+data:
+  policy.csv: |
+    p, role:org-admin, applications, *, */*, allow
+    p, role:org-admin, clusters, get, *, allow
+    p, role:org-admin, repositories, get, *, allow
+    p, role:org-admin, repositories, create, *, allow
+    p, role:org-admin, repositories, update, *, allow
+    p, role:org-admin, repositories, delete, *, allow
+    g, <new-user>, role:org-admin
+  policy.default: role:''
+
+--------------------------------------------------
+data:
+  policy.default: role:readonly
+  policy.csv: |
+    p, role:org-admin, applications, *, */*, allow
+    p, role:org-admin, clusters, get, *, allow
+    p, role:org-admin, repositories, get, *, allow
+    p, role:org-admin, repositories, create, *, allow
+    p, role:org-admin, repositories, update, *, allow
+    p, role:org-admin, repositories, delete, *, allow
+    g, your-github-org:your-team, role:org-admin
+    g, group, role:org-admin
+--------------------------------------------------
+data:
+  policy.default: role:readonly
+  policy.csv: |
+    p, role:staging-db-admins, applications, create, staging-db-admins/*, allow
+    p, role:staging-db-admins, applications, delete, staging-db-admins/*, allow
+    p, role:staging-db-admins, applications, get, staging-db-admins/*, allow
+    p, role:staging-db-admins, applications, override, staging-db-admins/*, allow
+    p, role:staging-db-admins, applications, sync, staging-db-admins/*, allow
+    p, role:staging-db-admins, applications, update, staging-db-admins/*, allow
+    p, role:staging-db-admins, projects, get, staging-db-admins, allow
+    g, db-admins, role:staging-db-admins
+
+This example defines a role called staging-db-admins with seven permissions that allow that role to perform the actions (create/delete/get/override/sync/update applications, and get appprojects) against * (all) objects in the staging-db-admins Argo CD AppProject.
+-------------------------------------------------
+The local users don't provide advanced features such as groups, login history etc. 
+----------------------------------------------------
 
 
+p, user:alice, applications, *, */*, allow
+p, user:alice, applications, *, */*, allow
+p, user:alice, applications, *, */*, allow
+p, user:alice, applications, *, */*, allow
+p, user:alice, applications, *, */*, allow
+p, user:alice, applications, *, */*, allow
