@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+data:
+  # add an additional local user with apiKey and login capabilities
+  #   apiKey - allows generating API keys
+  #   login - allows to login using UI
+  accounts.alice: apiKey, login
+  # disables user. User is enabled by default
+  accounts.alice.enabled: "false"
+
+
+124  kubectl get cm
+  125  kubectl get ns
+  126  kubectl get cm -n=argocd
+  127  ls $HOME/.ssh
+  128  exit
+  129  history
+  130  clear
+  131  kubectl get cm -n=argocd
+  132  kubectl describe cm argocd-ssh-known-hosts-cm -n=argocd
+  133  clear
+  134  ls
+  135  cler
+  136  clear
+  137  ls
+  138  vi cm.yaml
+  139  kubectl apply -f cm.yaml -n=argocd
+  140  kubectl describe cm argocd-ssh-known-hosts-cm -n=argocd
+  141  clear
+  142  argocd account list
+  143  ls
+  144  vi cm.yaml
+  145  kubectl apply -f cm.yaml -n=argocd
+  146  argocd account list
+  147  argocd account
+  148  clear
+  149  argocd account update-password -h
+  150  clear
+  151  argocd account update-password --account alice
+  152  argocd account -h
+  153  clear
+  154  argocd account can-i -h
+  155  argocd account can-i sync applications '*'
+  156  argocd account can-i update projects 'default'
+  157  argocd account can-i create clusters '*'
+  158  argocd account can-i -h
+  159  clear
+  160  argocd account -h
+  161  argocd account list
+  162  argocd account get admin
+  163  argocd account get-user-info admin
+  164  argocd account get-user-info
+  165  argocd account getadmin
+  166  argocd account get admin
+  167  argocd account generate-token -h
+  168  argocd account generate-token
+  169  argocd account list
+  170  argocd account generate-token --account alince
+  171  argocd account generate-token --account alice
+  172  argocd account get alice
+  173  argocd account get -h
+  174  argocd account get --account alice
+  175*
+  176  argocd account -h
+  177  argocd account delete-token -h
+  178  argocd account get --account alice
+  179  argocd account -h
+  180  argocd account delete-token -h
+  181  argocd account delete-token --account alice 965a415a-dfb2-409a-bae7-fe818e3978cc
+  182  argocd account get --account alice
+  183  argocd account -h
