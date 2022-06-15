@@ -15,6 +15,7 @@ data:
   accounts.alice.enabled: "false"
 
 
+argocd login 43.204.112.140:31142
 124  kubectl get cm
   125  kubectl get ns
   126  kubectl get cm -n=argocd
@@ -75,3 +76,114 @@ data:
   181  argocd account delete-token --account alice 965a415a-dfb2-409a-bae7-fe818e3978cc
   182  argocd account get --account alice
   183  argocd account -h
+
+
+- Argo CD Limitation
+	CI for Non-container SDLC - nO
+	CD for Non-container SDLC - no
+	CI for container SDLC - nO
+	CD for container SDLC - YES
+- No Auditing & Reportings & Compliance
+- no infra Provisioning
+
+DD - inf
+new  - apm
+splunk - log
+dyan - all
+app - all
+
+=======================================================================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: argocd
+data:
+  policy.default: role:readonly
+  policy.csv: |
+    p, role:org-admin, applications, *, */*, allow
+    p, role:org-admin, clusters, get, *, allow
+    p, role:org-admin, repositories, get, *, allow
+    p, role:org-admin, repositories, create, *, allow
+    p, role:org-admin, repositories, update, *, allow
+    g, alice, role:org-admin
+
+p, <role/user/group>, <resource>, <action>, <appproject>/<object>
+
+====================================================================
+					ArgocD 
+				------------------
+				RBAC
+
+				role
+					user|group
+					res
+					action
+
+
+
+ 183  argocd account -h
+  184  history
+  185  history | grep argocd login
+  186  history | grep login
+  187  clear
+  188  ls
+  189  kubectl get ns
+  190  kubectl get cm -n=argocd
+  191  kubectl describe cm argocd-rbac-cm -n=argocd
+  192  clear
+  193  ls
+  194  vi cm-rbac.yaml
+  195  ls
+  196  kubectl apply -f cm-rbac.yaml -n=argocd
+  197  kubectl describe cm argocd-rbac-cm -n=argocd
+  198  argocd account get-user-info admin
+  199  argocd account get-user-info
+  200  argocd get roles -n=argocd
+  201  kubectl get roles -n=argocd
+  202  kubectl describe roles argocd-dex-server -n=argocd
+  203  clear
+  204  kubectl describe roles argocd-dex-server -n=argocd
+  205  kubectl get cm -n=argocd
+  206  kubectl describe cm argocd-rbac-cm -n=argocd
+  207  clear
+  208  kubectl explain RoleBinding.subjects
+  209  kubectl explain RoleBinding.subjects.kind
+  210  clear
+  211  ls
+  212  vi cm-rbac.yaml
+  213  kubectl apply -f cm-rbac.yaml -n=argocd
+  214  kubectl describe cm argocd-rbac-cm -n=argocd
+  215  vi cm-rbac.yaml
+  216  clear
+  217  kubectl describe cm argocd-rbac-cm -n=argocd
+  218  clear
+  219  kubectl apply -f cm-rbac.yaml -n=argocd
+  220  kubectl describe cm argocd-rbac-cm -n=argocd
+  221  clear
+  222  argocd account get-user-info
+  223  kubectl describe cm argocd-rbac-cm -n=argocd
+  224  clear
+  225  ls
+  226  argocd
+  227  argocd repo -h
+  228  argocd repo list
+  229  clear
+  230  argocd repo list
+  231  clear
+  232  argocd repo list
+  233  argocd repo rm -h
+  234  argocd repo rm https://github.com/argoproj/argocd-example-apps
+  235  argocd repo list
+  236  clear
+  237  argocd logout
+  238  argocd logout 43.204.112.140:31142
+  239  clear
+  240  argocd login 43.204.112.140:31142
+  241  history
+  242  argocd repo list
+  243  argocd repo rm https://github.com/argoproj/argocd-example-apps
+--------------------------------------------
+
+
+
